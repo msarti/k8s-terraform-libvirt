@@ -1,0 +1,43 @@
+- name: Installo i prerequisiti
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - yum-utils
+    - python3-devel
+- name: Installo i pip necessari ad Ansible per docker swarm
+  pip:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - docker
+    - jsondiff
+    - pyyaml
+    ansible_python_interpreter: /usr/bin/python3
+- name: Aggiunge il repository docker
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+- name: Installo docker-ce
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - docker-ce-cli
+      - containerd.io
+      - docker-ce
+- name: Aggiungo l'utente admin al gruppo docker
+  user:
+    name: 'admin'
+    groups: 'docker'
+    append: 'yes'
+- name: 'Abilito docker systemd service'
+  service:
+    name: 'docker'
+    state: 'started'
+    enabled: 'yes'
+- name: 'Schedula docker system prune'
+  cron:
+    name: 'docker-prune'
+    minute: '0'
+    hour: '*/2'
+    job: 'docker container prune -f'

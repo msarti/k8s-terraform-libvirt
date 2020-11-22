@@ -1,0 +1,2 @@
+cidr_v: 10.244.0.0/16
+token_file: join_token

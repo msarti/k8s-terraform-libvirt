@@ -1,0 +1,7 @@
+- name: "Update all packages"
+#  become: yes
+#  become_method: su
+  package:
+    name: "*"
+    state: latest
+    

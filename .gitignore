@@ -1,0 +1,5 @@
+.terraform
+cloud_init.cfg
+terraform.tfstate*
+join_token
+

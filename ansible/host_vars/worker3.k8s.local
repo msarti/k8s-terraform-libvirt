@@ -1,0 +1,6 @@
+os_version: xUbuntu_20.04 
+ansible_user: ansible 
+ansible_host: 10.17.3.6
+install_crio: yes 
+install_kubernetes: yes 
+ansible_become: yes

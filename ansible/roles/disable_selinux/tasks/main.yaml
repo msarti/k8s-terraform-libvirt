@@ -1,0 +1,7 @@
+- name: Disabilito selinux
+  selinux:
+    state: disabled
+  register: selinux
+- name: schedulo il reboot
+  reboot:
+  when: selinux.changed

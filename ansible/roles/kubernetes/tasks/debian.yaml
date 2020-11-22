@@ -1,0 +1,22 @@
+- apt_key:
+    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    state: present
+- apt_repository:
+    repo: 'deb https://apt.kubernetes.io/ kubernetes-xenial main'
+    state: present
+- package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - kubelet={{ kubernetes_version }}
+    - kubeadm={{ kubernetes_version }}
+    - kubectl={{ kubernetes_version }}
+    - iptables
+    - ebtables
+    - conntrack
+    - ethtool
+    - open-iscsi
+- service:
+    name: iscsid
+    state: started
+    enabled: true

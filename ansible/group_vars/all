@@ -1,0 +1,4 @@
+crio_version: "1.18"
+kubernetes_version: "1.19.4-00"
+
+

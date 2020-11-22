@@ -1,0 +1,13 @@
+- get_url:
+    url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ os_version }}/devel:kubic:libcontainers:stable.repo"
+    dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable.repo"
+- get_url:
+    url: "https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{ crio_version }}/{{ os_version }}/devel:kubic:libcontainers:stable:cri-o:{{ crio_version }}.repo"
+    dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{ crio_version }}.repo"
+- yum:
+    name: "cri-o"
+    state: latest
+- service:
+    name: crio
+    state: started
+    enabled: true

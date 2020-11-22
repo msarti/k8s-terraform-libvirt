@@ -1,0 +1,33 @@
+- package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - gpg
+    - libseccomp2
+- apt_key:
+    url: "http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ crio_version }}/{{ os_version }}/Release.key"
+    state: present
+- apt_key:
+    url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ os_version }}/Release.key"
+    state: present
+- apt_repository:
+    repo: 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ os_version }}/ /'
+    state: present
+- apt_repository:
+    repo: 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ crio_version }}/{{ os_version }}/ /'
+    state: present
+- package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - cri-o
+    - cri-o-runc
+- lineinfile: 
+    path: /etc/crio/crio.conf 
+    regexp: '^(.*)cgroup_manager =(.*)$' 
+    line: 'cgroup_manager = "cgroupfs"'
+    backrefs: yes
+- service:
+    name: crio
+    state: restarted
+    enabled: yes

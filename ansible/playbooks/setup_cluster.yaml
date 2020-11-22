@@ -1,0 +1,6 @@
+---
+- hosts: primary_master
+  vars_files:
+  - env_variables
+  roles:
+  - init_cluster

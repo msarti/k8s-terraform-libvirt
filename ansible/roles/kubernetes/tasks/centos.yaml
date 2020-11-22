@@ -1,0 +1,17 @@
+- copy:
+    src: kubernetes.repo
+    dest: /etc/yum.repos.d/kubernetes.repo
+- yum:
+    name: "{{ packages }}"
+    disable_excludes: kubernetes
+  vars:
+    packages:
+    - "kubelet-{{ kubernetes_version }}"
+    - "kubeadm-{{ kubernetes_version }}"
+    - "kubectl-{{ kubernetes_version }}"
+- service:
+    name: kubelet
+    state: started
+    enabled: true
+
+

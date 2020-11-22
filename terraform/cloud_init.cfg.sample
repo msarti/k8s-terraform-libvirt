@@ -1,0 +1,19 @@
+#cloud-config
+users:
+  - default
+  - name: ansible
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    home: /home/ansible
+    passwd: $1$SaltSalt$EZlGtD8tNS8u/ZCr7qjKK.
+    lock_passwd: False
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - < paste here your public ssh key >
+packages:
+  - libseccomp2
+  - gpg
+  - iptables
+  - ebtables
+  - conntrack
+  - ethtool

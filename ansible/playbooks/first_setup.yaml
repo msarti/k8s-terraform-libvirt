@@ -1,0 +1,26 @@
+---
+- hosts: "all"
+  roles:
+  - hostname
+  - update
+  - kernel
+  - role: disable_selinux
+    when: ansible_distribution == "CentOS"
+  - role: firewalld
+    when: ansible_distribution == "CentOS"
+  - role: crio
+    when: install_crio is defined
+  - role: docker
+    when: install_docker is defined
+  - role: kubernetes
+    when: install_kubernetes is defined
+- hosts: primary_master
+  vars_files:
+  - env_variables
+  roles:
+  - init_cluster
+- hosts: "worker"
+  vars_files:
+  - env_variables
+  roles:
+  - init_nodes

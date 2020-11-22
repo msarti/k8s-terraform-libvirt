@@ -1,0 +1,7 @@
+[primary_master]
+master.k8s.local
+
+[worker] 
+worker1.k8s.local
+worker2.k8s.local
+worker3.k8s.local

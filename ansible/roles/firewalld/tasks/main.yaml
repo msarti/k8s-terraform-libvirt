@@ -1,0 +1,5 @@
+- name: "Disable firwalld"
+  service:
+    name: firewalld
+    state: stopped
+    enabled: false

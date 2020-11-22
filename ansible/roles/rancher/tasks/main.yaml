@@ -1,0 +1,11 @@
+- name: Create rancher container
+  community.general.docker_container:
+    name: rancher
+    image: rancher/rancher:latest
+    ports:
+    - 80:80
+    - 443:443
+    restart: yes
+    privileged: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

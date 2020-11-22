@@ -1,0 +1,23 @@
+- become: yes
+  modprobe:
+    name: br_netfilter
+    state: present
+- become: yes
+  modprobe:
+    name: overlay
+    state: present
+- become: yes
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    state: present
+- become: yes
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: '1'
+    state: present
+- become: yes
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present    

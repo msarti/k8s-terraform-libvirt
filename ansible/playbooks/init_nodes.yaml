@@ -1,0 +1,6 @@
+---
+- hosts: "{{ setup_nodes | default('worker') }}"
+  vars_files:
+  - env_variables
+  roles:
+  - init_nodes
